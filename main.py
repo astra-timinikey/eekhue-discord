@@ -1,21 +1,27 @@
+import os
+
 import discord
 from discord.ext import commands
-from eekhue_core import shared_utils  # example import from core
+from dotenv import load_dotenv
+
+from eekhue_core import shared_utils
 from eekhue_discord.handlers import basic
 
-intents = discord.Intents.default()
-bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Register cogs or commands
-@bot.event
-async def on_ready():
-    print(f"Logged in as {bot.user}")
+def run_bot():
+    load_dotenv()
+    token = os.getenv("DISCORD_TOKEN")
 
-bot.add_cog(basic.BasicHandler(bot))
+    intents = discord.Intents.default()
+    bot = commands.Bot(command_prefix="!", intents=intents)
+
+    @bot.event
+    async def on_ready():
+        print(f"Logged in as {bot.user}")
+
+    bot.add_cog(basic.BasicHandler(bot))
+    bot.run(token)
+
 
 if __name__ == "__main__":
-    import os
-    from dotenv import load_dotenv
-    load_dotenv()
-    TOKEN = os.getenv("DISCORD_TOKEN")
-    bot.run(TOKEN)
+    run_bot()
