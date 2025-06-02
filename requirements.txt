@@ -1,0 +1,3 @@
+discord.py>=2.0.0
+python-dotenv>=0.21.0
+git+https://github.com/<your-username>/eekhue-core.git#egg=eekhue_core
